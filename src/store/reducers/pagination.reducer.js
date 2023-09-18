@@ -10,9 +10,9 @@ const initialState = {
 export const changePageReducer = (state = initialState, action) => {
   console.log('change page reducer', state.page)
   switch (action.type) {
-    case CHANGE_PAGE:
-      return { ...state, offset: action.page * state.limit - state.limit, page: action.page }
-    default:
-      return state
+  case CHANGE_PAGE:
+    return { ...state, offset: action.page * state.limit - state.limit, page: action.page }
+  default:
+    return state
   }
 }
