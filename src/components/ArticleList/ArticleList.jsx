@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 
-import { fetchGetPostsList } from '../../services/asyncActions/getPostsList'
+import { fetchGetPostsList } from '../../services/getPostsList'
 import { ArticleInfo } from '../ArticleInfo/ArticleInfo'
 import { changePageAction } from '../../store/actions/pagination.action'
 

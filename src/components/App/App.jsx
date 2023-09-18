@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import ArticleList from '../ArticleList/ArticleList'
 import Header from '../Header/Header'
@@ -8,6 +8,7 @@ import SignUp from '../AccountManagment/SignUp'
 import SignIn from '../AccountManagment/SignIn'
 import EditProfile from '../AccountManagment/EditProfile'
 import CreateArticle from '../CreateArticle'
+// import Post from '../post'
 // import EditArticle from '../EditArticle'
 // import NotFoundPage from '../NotFoundPage'
 
@@ -20,13 +21,17 @@ function App() {
       <Header />
 
       <Router>
-        <Route path="/" exact component={ArticleList} />
-        <Route path="/:slug/b" component={SingleArticle} />
-        <Route path="/sign-up" exact component={SignUp} />
-        <Route path="/sign-in" exact component={SignIn} />
-        <Route path="/profile" exact component={EditProfile} />
-        <Route path="/new-article" exact component={CreateArticle} />
-        {/* <Route path="/articles/{slug}/edit" exact component={EditArticle} /> */}
+        <Routes>
+          <Route path="/" element={<ArticleList />} />
+          <Route path="/articles" element={<ArticleList />} />
+
+          <Route path="/:slug" element={<SingleArticle />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/profile" element={<EditProfile />} />
+          <Route path="/new-article" element={<CreateArticle />} />
+          {/* <Route path="/articles/{slug}/edit" element={<EditArticle />} /> */}
+        </Routes>
       </Router>
     </div>
   )

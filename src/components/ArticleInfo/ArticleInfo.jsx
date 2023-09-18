@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import likeButton from '../../assets/img/LIkeButton.svg'
 
 import classes from './ArticleInfo.module.scss'
 const ArticleInfo = ({ data }) => {
-  const { description, title, author, tagList, favoritesCount } = data
+  const { description, title, author, tagList, favoritesCount, slug, updatedAt } = data
   const renderTags = () => {
     return tagList
       .filter((tag) => tag !== null && tag.trim() !== '')
@@ -14,11 +15,18 @@ const ArticleInfo = ({ data }) => {
         </li>
       ))
   }
+  const formatDate = (isoDate) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    const formattedDate = new Date(isoDate).toLocaleDateString(undefined, options)
+    return formattedDate
+  }
   return (
     <div className={classes.ArticleInfo}>
       <div className={classes.ArticleInfo__info}>
         <div className={classes.ArticleInfo__wrapper}>
-          <div className={classes.ArticleInfo__title}>{title}</div>
+          <Link className={classes.ArticleInfo__title} to={`/${slug}`}>
+            {title}
+          </Link>
           <button className={classes.ArticleInfo__likes} type="button">
             <img src={likeButton} alt="Likes" />
           </button>
@@ -30,7 +38,7 @@ const ArticleInfo = ({ data }) => {
       <div className={classes.ArticleInfo__account}>
         <div className={classes.ArticleInfo__accountTextInfo}>
           <div className={classes.ArticleInfo__autorsLogin}>{author.username}</div>
-          <div className={classes.ArticleInfo__date}>March 5, 2020 </div>
+          <div className={classes.ArticleInfo__date}>{formatDate(updatedAt)}</div>
         </div>
         <img className={classes.ArticleInfo__image} src={author.image} alt="ProfileImage" />
       </div>

@@ -1,53 +1,61 @@
-import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { fetchGetPost } from '../../services/fetchGetPost'
 import likeButton from '../../assets/img/LIkeButton.svg'
-import profile from '../../assets/img/profile1.svg'
 
 import classes from './SingleArticle.module.scss'
 const SingleArticle = () => {
-  const markdownContent = `
-# Заголовок 1
-## Заголовок 2
-### Заголовок 3
-*Курсив*
-**Жирный**
-***Жирный и курсив***
-`
+  const dispatch = useDispatch()
+  const { slug } = useParams()
+
+  useEffect(() => {
+    dispatch(fetchGetPost(slug))
+  }, [slug])
+
+  const post = useSelector((store) => store.getPostReducer.article)
+  const article = post ? post : null
+
+  const generateTagList = (tagList) => {
+    return tagList.map((tag, index) => (
+      <li className={classes.SingleArticle__tagItem} key={index}>
+        {tag}
+      </li>
+    ))
+  }
+
   return (
-    <div className={classes.SingleArticle}>
-      <div className={classes.SingleArticle__container}>
-        <div className={classes.SingleArticle__info}>
-          <div className={classes.SingleArticle__wrapper}>
-            <div className={classes.SingleArticle__title}>Some article title</div>
-            <button className={classes.SingleArticle__likes} type="button">
-              <img src={likeButton} alt="Likes" />
-            </button>
-            <span className={classes.SingleArticle__likesAmount}>12</span>
+    <>
+      {post && (
+        <div className={classes.SingleArticle}>
+          <div className={classes.SingleArticle__container}>
+            <div className={classes.SingleArticle__info}>
+              <div className={classes.SingleArticle__wrapper}>
+                <div className={classes.SingleArticle__title}>{article.title}</div>
+                <button className={classes.SingleArticle__likes} type="button">
+                  <img src={likeButton} alt="Likes" />
+                </button>
+                <span className={classes.SingleArticle__likesAmount}>{article.favoritesCount}</span>
+              </div>
+              <ul className={classes.SingleArticle__tags}>{post && generateTagList(article.tagList)}</ul>
+              <p className={classes.SingleArticle__description}>{article.description}</p>
+            </div>
+            <div className={classes.SingleArticle__account}>
+              <div className={classes.SingleArticle__accountTextInfo}>
+                <div className={classes.SingleArticle__autorsLogin}>{article.author.username}</div>
+                <div className={classes.SingleArticle__date}>March 5, 2020 </div>
+              </div>
+              <img className={classes.SingleArticle__image} src={article.author.image} alt="ProfileImage" />
+            </div>
           </div>
-          <ul className={classes.SingleArticle__tags}>
-            <li className={classes.SingleArticle__tagItem}>тег</li>
-            <li className={classes.SingleArticle__tagItem}>тег</li>
-            <li className={classes.SingleArticle__tagItem}>тег</li>
-          </ul>
-          <p className={classes.SingleArticle__description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.{' '}
-          </p>
-        </div>
-        <div className={classes.SingleArticle__account}>
-          <div className={classes.SingleArticle__accountTextInfo}>
-            <div className={classes.SingleArticle__autorsLogin}>John Doe</div>
-            <div className={classes.SingleArticle__date}>March 5, 2020 </div>
+          <div className={classes.SingleArticle__mainTextContent}>
+            <ReactMarkdown>{article.body}</ReactMarkdown>
           </div>
-          <img className={classes.SingleArticle__image} src={profile} alt="ProfileImage" />
         </div>
-      </div>
-      <div className={classes.SingleArticle__mainTextContent}>
-        <ReactMarkdown>{markdownContent}</ReactMarkdown>
-      </div>
-    </div>
+      )}
+    </>
   )
 }
 

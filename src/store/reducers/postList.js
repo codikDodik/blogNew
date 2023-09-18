@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { GET_POSTS } from '../asyncActions/getPostsList'
+import { GET_POSTS } from '../../services/getPostsList'
 
 const initialState = {
   articles: [],
@@ -7,7 +7,6 @@ const initialState = {
 }
 
 const getPostsListReducer = (state = initialState, action) => {
-  console.log('get post reducer', action)
   switch (action.type) {
     case GET_POSTS:
       return { ...action.data }
