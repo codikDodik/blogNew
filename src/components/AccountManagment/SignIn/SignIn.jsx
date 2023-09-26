@@ -16,20 +16,20 @@ const SignIn = () => {
               className={classes.SignIn__input}
               type="text"
               id="email"
-              name="username"
+              name="email"
               required
             />
           </div>
           <div className={classes.SignIn__container}>
-            <label htmlFor="Password">
+            <label htmlFor="password">
               <span className={classes.SignIn__label}>Password</span>
             </label>
             <input
               className={classes.SignIn__input}
               placeholder="Password"
               type="text"
-              id="Password"
-              name="username"
+              id="password"
+              name="password"
               required
             />
           </div>

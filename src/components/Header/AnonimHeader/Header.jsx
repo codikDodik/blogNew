@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import classes from './Header.module.scss'
 
@@ -7,8 +8,12 @@ const Header = () => {
     <div className={classes.Header}>
       <div className={classes.Header__name}>Realworld Blog</div>
       <div className={classes.Header__signButtons}>
-        <button className={classes.Header__signInButton}>Sign In</button>
-        <button className={classes.Header__signUpButton}>Sign Up</button>
+        <Link to="/sign-in">
+          <button className={classes.Header__signInButton}>Sign In</button>
+        </Link>
+        <Link to="/sign-up">
+          <button className={classes.Header__signUpButton}>Sign Up</button>
+        </Link>
       </div>
     </div>
   )

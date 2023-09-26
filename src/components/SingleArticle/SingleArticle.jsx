@@ -25,6 +25,11 @@ const SingleArticle = () => {
       </li>
     ))
   }
+  const formatDate = (isoDate) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    const formattedDate = new Date(isoDate).toLocaleDateString(undefined, options)
+    return formattedDate
+  }
 
   return (
     <>
@@ -45,7 +50,7 @@ const SingleArticle = () => {
             <div className={classes.SingleArticle__account}>
               <div className={classes.SingleArticle__accountTextInfo}>
                 <div className={classes.SingleArticle__autorsLogin}>{article.author.username}</div>
-                <div className={classes.SingleArticle__date}>March 5, 2020 </div>
+                <div className={classes.SingleArticle__date}>{formatDate(article.updatedAt)}</div>
               </div>
               <img className={classes.SingleArticle__image} src={article.author.image} alt="ProfileImage" />
             </div>
