@@ -4,12 +4,14 @@ import { getPostsListReducer } from '../store/reducers/postList'
 import { changePageReducer } from '../store/reducers/pagination.reducer'
 import { getPostReducer } from '../store/reducers/getPost.reducer'
 import { formReducer } from '../store/reducers/registration.reducer'
+import { usersData } from '../store/reducers/usersData.reducer'
 
 const rootReducer = combineReducers({
   getPostsListReducer,
   changePageReducer,
   getPostReducer,
   formReducer,
+  usersData,
 })
 
 export default rootReducer
