@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 export const REGISTRATION_DATA = 'REGISTRATION_DATA'
 
 const initialState = {
