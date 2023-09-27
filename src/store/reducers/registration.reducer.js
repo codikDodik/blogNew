@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable prettier/prettier */
 export const REGISTRATION_DATA = 'REGISTRATION_DATA'
 
