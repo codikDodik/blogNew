@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 // import { signUpInfo } from '../../../store/actions/registration.action'
 import { registerUser } from '../../../services/registerUser'
@@ -137,9 +138,9 @@ const SignUp = () => {
           <div className={classes.SignUp__footer}>
             <p>
               Already have an account?{' '}
-              <a className={classes.SignUp__footerLink} href="/sign-in">
-                Sign In
-              </a>
+              <Link to="/sign-in">
+                <span className={classes.SignUp__linkText}>Sign In</span>
+              </Link>
             </p>
           </div>
         </form>

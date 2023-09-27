@@ -82,4 +82,10 @@
     color: #f5222d;
     font-size: 12px;
   }
+  &__linkText {
+    color: $blue;
+  }
+  &__linkText:hover {
+    text-decoration: underline;
+  }
 }

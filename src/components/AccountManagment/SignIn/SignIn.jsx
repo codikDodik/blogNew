@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import classes from './SignIn.module.scss'
 const SignIn = () => {
@@ -39,9 +40,9 @@ const SignIn = () => {
           <div className={classes.SignIn__footer}>
             <p>
               Already have an account?{' '}
-              <a className={classes.SignIn__footerLink} href="/signin">
-                Sign Up
-              </a>
+              <Link to="/sign-up">
+                <span className={classes.SignIn__linkText}>Sign Up</span>
+              </Link>
             </p>
           </div>
         </form>
