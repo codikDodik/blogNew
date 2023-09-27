@@ -17,5 +17,5 @@ const formReducer = (state = initialState, action) => {
       return state
   }
 }
-//он не коммитит удаление лишних отступов, попробую так
+
 export { formReducer }

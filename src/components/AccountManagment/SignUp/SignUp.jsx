@@ -2,7 +2,8 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 
-import { signUpInfo } from '../../../store/actions/registration.action'
+// import { signUpInfo } from '../../../store/actions/registration.action'
+import { registerUser } from '../../../services/registerUser'
 
 import classes from './SignUp.module.scss'
 
@@ -19,7 +20,7 @@ const SignUp = () => {
   })
 
   const onSubmit = (data) => {
-    dispatch(signUpInfo(data))
+    dispatch(registerUser(data))
     console.log(data)
     reset()
   }
@@ -86,7 +87,7 @@ const SignUp = () => {
             <input
               className={classes.SignUp__input}
               placeholder="Password"
-              type="text"
+              type="password"
               id="password"
               {...register('password', {
                 required: true,
@@ -107,7 +108,7 @@ const SignUp = () => {
             <input
               className={classes.SignUp__input}
               placeholder="Repeat Password"
-              type="text"
+              type="password"
               id="confirmPassword"
               {...register('confirmPassword', {
                 required: true,
@@ -136,7 +137,7 @@ const SignUp = () => {
           <div className={classes.SignUp__footer}>
             <p>
               Already have an account?{' '}
-              <a className={classes.SignUp__footerLink} href="/signin">
+              <a className={classes.SignUp__footerLink} href="/sign-in">
                 Sign In
               </a>
             </p>
