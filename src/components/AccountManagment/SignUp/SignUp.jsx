@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -9,6 +9,7 @@ import { registerUser } from '../../../services/registerUser'
 import classes from './SignUp.module.scss'
 
 const SignUp = () => {
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
   const dispatch = useDispatch()
   const {
     register,
@@ -24,6 +25,9 @@ const SignUp = () => {
     dispatch(registerUser(data))
     console.log(data)
     reset()
+  }
+  const handleCheckboxChange = (e) => {
+    setIsCheckboxChecked(e.target.checked)
   }
 
   console.log('errors', errors)
@@ -128,11 +132,12 @@ const SignUp = () => {
                 type="checkbox"
                 id="agreeCheckbox"
                 value="agree"
+                onChange={handleCheckboxChange}
               />
             </label>
             <span className={classes.SignUp__agreementText}>I agree to the processing of my personal information</span>
           </div>
-          <button className={classes.SignUp__button} type="submit">
+          <button className={classes.SignUp__button} type="submit" disabled={!isCheckboxChecked}>
             <span className={classes.SignUp__buttonText}>Create</span>
           </button>
           <div className={classes.SignUp__footer}>

@@ -8,6 +8,7 @@ import SignUp from '../AccountManagment/SignUp'
 import SignIn from '../AccountManagment/SignIn'
 import EditProfile from '../AccountManagment/EditProfile'
 import CreateArticle from '../CreateArticle'
+import UsersHeader from '../Header/UsersHeader'
 // import Post from '../Post'
 // import EditArticle from '../EditArticle'
 // import NotFoundPage from '../NotFoundPage'
@@ -18,9 +19,7 @@ console.log(classes)
 function App() {
   return (
     <div className={classes.App}>
-      <header className={classes.App__header}>
-        <Header />
-      </header>
+      <header className={classes.App__header}>{localStorage.user ? <UsersHeader /> : <Header />}</header>
 
       <main className={classes.App__main}>
         <Routes>
