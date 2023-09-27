@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 export const GET_DATA_USER = 'GET_DATA_USER'
 
 const user = localStorage.user ? JSON.parse(localStorage.user) : false
