@@ -11,11 +11,15 @@
     margin: 30px 0 35px 22px;
     font-size: large;
   }
+  &__nameWrapper {
+    color: black;
+  }
   &__buttons {
     font-family: $font-family;
     margin: 20px 22px 20px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   &__logOutButton {
     margin-left: 27px;
@@ -58,6 +62,7 @@
   }
   &__username {
     align-self: center;
+    font-size: 18px;
     margin-left: 27px;
   }
 }

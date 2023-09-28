@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { usersDataAction } from '../store/actions/usersData.action'
+import { usersDataAction, wrongUsersDataAction } from '../store/actions/usersData.action'
 export const authoriztionUsers = (data) => {
   return (dispatch) => {
     fetch('https://blog.kata.academy/api/users/login', {
@@ -21,7 +21,7 @@ export const authoriztionUsers = (data) => {
           localStorage.user = JSON.stringify(user)
           dispatch(usersDataAction(user.token, user.username, user.email, user.password))
         } else {
-          console.log('authorizaiton error')
+          dispatch(wrongUsersDataAction())
         }
       })
   }

@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable indent */
 export const GET_DATA_USER = 'GET_DATA_USER'
+export const WRONG_USERS_DATA = 'WRONG_USERS_DATA'
 
 const user = localStorage.user ? JSON.parse(localStorage.user) : false
 
@@ -9,6 +10,7 @@ const initialState = {
   username: user ? user.username : '',
   email: user ? user.email : '',
   image: user.image ? user.image : '',
+  error: false,
 }
 
 export const usersData = (state = initialState, action) => {
@@ -20,6 +22,11 @@ export const usersData = (state = initialState, action) => {
         username: action.username,
         email: action.email,
         image: action.image ? action.image : '',
+      }
+    case WRONG_USERS_DATA:
+      return {
+        ...state,
+        error: true,
       }
     default:
       return state
