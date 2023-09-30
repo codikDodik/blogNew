@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 import ArticleList from '../ArticleList/ArticleList'
 import Header from '../Header/AnonimHeader'
@@ -20,10 +21,20 @@ function App() {
   const usersData = useSelector((state) => {
     return state.usersData.error
   })
-  console.log('app', usersData)
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'))
+    if (storedUser) {
+      // Если есть данные в localStorage, отображаем UsersHeader
+      // и выходим из компонента, чтобы не переключать на Header
+      return
+    }
+  }, [])
+
   return (
     <div className={classes.App}>
-      <header className={classes.App__header}>{usersData === false ? <UsersHeader /> : <Header />}</header>
+      <header className={classes.App__header}>
+        {usersData === false || localStorage.getItem('user') ? <UsersHeader /> : <Header />}
+      </header>
 
       <main className={classes.App__main}>
         <Routes>

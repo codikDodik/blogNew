@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 
 // import { updateUser } from '../../../services/updateUser'
 
 import classes from './EditProfile.module.scss'
 
 const EditProfile = () => {
+  const defaultValues = useSelector((state) => {
+    return state.usersData
+  })
   const {
     register,
     formState: { errors },
@@ -51,6 +55,7 @@ const EditProfile = () => {
                   message: 'Username must be at most 20 characters',
                 },
               })}
+              defaultValue={defaultValues.username}
             />
             {errors.username && <p className={classes.EditProfile__errorText}>{errors.username.message}</p>}
           </div>
@@ -71,6 +76,7 @@ const EditProfile = () => {
                   message: 'Invalid email address',
                 },
               })}
+              defaultValue={defaultValues.email}
             />
             {errors.email && <p className={classes.EditProfile__errorText}>{errors.email.message}</p>}
           </div>
@@ -120,6 +126,7 @@ const EditProfile = () => {
                   message: 'Invalid URL format',
                 },
               })}
+              defaultValue={defaultValues.image}
             />
             {errors['avatar-image'] && (
               <p className={classes.EditProfile__errorText}>{errors['avatar-image'].message}</p>
