@@ -1,6 +1,6 @@
 @import '../../../assets/style.variable.scss';
 
-.SignIn {
+.EditProfile {
   margin-top: 60px;
   max-width: 938px;
   background-color: $background_white;
@@ -51,5 +51,9 @@
   &__buttonText {
     color: white;
     font-size: 16px;
+  }
+  &__errorText {
+    color: #f5222d;
+    font-size: 12px;
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import ArticleList from '../ArticleList/ArticleList'
@@ -17,9 +17,18 @@ import classes from './App.module.scss'
 console.log(classes)
 
 function App() {
+  const [user, setUser] = useState(null)
+
+  // Проверка localStorage при загрузке компонента
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'))
+    if (storedUser) {
+      setUser(storedUser)
+    }
+  }, [])
   return (
     <div className={classes.App}>
-      <header className={classes.App__header}>{localStorage.user ? <UsersHeader /> : <Header />}</header>
+      <header className={classes.App__header}>{user ? <UsersHeader /> : <Header />}</header>
 
       <main className={classes.App__main}>
         <Routes>
