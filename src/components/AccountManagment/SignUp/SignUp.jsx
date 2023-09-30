@@ -29,7 +29,6 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     try {
       await dispatch(registerUser(data))
-      // После успешной регистрации перенаправляем на страницу авторизации (sign-in)
       navigate('/sign-in')
       reset()
     } catch (error) {

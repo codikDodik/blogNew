@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import ArticleList from '../ArticleList/ArticleList'
 import Header from '../Header/AnonimHeader'
@@ -17,18 +17,13 @@ import classes from './App.module.scss'
 console.log(classes)
 
 function App() {
-  const [user, setUser] = useState(null)
-
-  // Проверка localStorage при загрузке компонента
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'))
-    if (storedUser) {
-      setUser(storedUser)
-    }
-  }, [])
+  const usersData = useSelector((state) => {
+    return state.usersData.error
+  })
+  console.log('app', usersData)
   return (
     <div className={classes.App}>
-      <header className={classes.App__header}>{user ? <UsersHeader /> : <Header />}</header>
+      <header className={classes.App__header}>{usersData === false ? <UsersHeader /> : <Header />}</header>
 
       <main className={classes.App__main}>
         <Routes>

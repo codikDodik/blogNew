@@ -10,7 +10,7 @@ const initialState = {
   username: user ? user.username : '',
   email: user ? user.email : '',
   image: user.image ? user.image : '',
-  error: false,
+  error: null,
 }
 
 export const usersData = (state = initialState, action) => {
@@ -23,6 +23,7 @@ export const usersData = (state = initialState, action) => {
         username: action.username,
         email: action.email,
         image: action.image ? action.image : '',
+        error: false,
       }
     case WRONG_USERS_DATA:
       return {

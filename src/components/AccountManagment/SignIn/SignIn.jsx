@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -7,10 +7,11 @@ import { authoriztionUsers } from '../../../services/authorizationUser'
 
 import classes from './SignIn.module.scss'
 const SignIn = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const usersDataError = useSelector((state) => {
     return state.usersData.error
   })
+  console.log('usersDataError', usersDataError)
   const dispatch = useDispatch()
   const {
     register,
@@ -20,13 +21,10 @@ const SignIn = () => {
     mode: 'onBlur',
   })
 
-  const onSubmit = async (data) => {
-    console.log('authorization', data)
-    try {
-      await dispatch(authoriztionUsers(data))
-      window.location.href = '/'
-    } catch (error) {
-      console.error('Ошибка авторизации', error)
+  const onSubmit = (data) => {
+    dispatch(authoriztionUsers(data))
+    if (usersDataError === null) {
+      navigate('/')
     }
   }
 
