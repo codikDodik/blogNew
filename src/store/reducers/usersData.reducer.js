@@ -14,7 +14,6 @@ const initialState = {
 }
 
 export const usersData = (state = initialState, action) => {
-  console.log('user data', state)
   switch (action.type) {
     case GET_DATA_USER:
       return {

@@ -14,7 +14,6 @@ const ArticleList = () => {
   const page = useSelector((store) => store.changePageReducer.page)
   const limit = useSelector((store) => store.changePageReducer.limit)
   const offset = useSelector((store) => store.changePageReducer.offset)
-  console.log(page)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchGetPostsList(limit, offset))
@@ -24,7 +23,6 @@ const ArticleList = () => {
     dispatch(changePageAction(page))
   }
 
-  console.log(articles)
   return (
     <>
       <div className={classes.ArticleList}>

@@ -11,7 +11,6 @@ const initialState = {
 }
 
 const formReducer = (state = initialState, action) => {
-  console.log('form reducer', action, state)
   switch (action.type) {
     case 'REGISTRATION_DATA':
       return {

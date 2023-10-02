@@ -39,7 +39,7 @@ const CreateArticle = () => {
             </label>
             <textarea
               className={classes.CreateArticle__input_mainContent}
-              placeholder="Title"
+              placeholder="Text"
               type="text"
               id="article text"
               name="article text"

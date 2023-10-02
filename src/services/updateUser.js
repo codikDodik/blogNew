@@ -18,7 +18,7 @@ export const updateUser = (token, username, email, image) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log('update data', data)
       })
   }
 }

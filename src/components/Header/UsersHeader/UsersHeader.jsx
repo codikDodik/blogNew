@@ -9,7 +9,6 @@ const UsersHeader = () => {
   const usersData = useSelector((state) => {
     return state.usersData
   })
-  console.log('usersData in header', usersData)
   const handleLogout = () => {
     localStorage.removeItem('user')
     window.location.href = '/'

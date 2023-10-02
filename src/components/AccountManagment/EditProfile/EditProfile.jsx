@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 
-// import { updateUser } from '../../../services/updateUser'
+import { updateUser } from '../../../services/updateUser'
+import { updateUsername, updateEmail, updatePassword, updateImage } from '../../../store/actions/updateUser.action'
 
 import classes from './EditProfile.module.scss'
 
 const EditProfile = () => {
-  const defaultValues = useSelector((state) => {
-    return state.usersData
-  })
+  const username = useSelector((store) => store.updateUserReducer.username)
+  const email = useSelector((store) => store.updateUserReducer.email)
+  const avatarImage = useSelector((store) => store.updateUserReducer.avatarImage)
+  const token = useSelector((store) => store.updateUserReducer.token)
+
+  const dispatch = useDispatch()
   const {
     register,
     formState: { errors },
-    handleSubmit,
   } = useForm({
     mode: 'onBlur',
   })
@@ -25,16 +28,24 @@ const EditProfile = () => {
     setHasErrors(hasFormErrors)
   }
 
-  const onSubmit = (data) => {
+  const handleUpdateUser = (e) => {
     checkErrors
-    console.log('Form data:', data)
+    e.preventDefault()
+    localStorage.user = JSON.stringify({
+      username: username,
+      email: email,
+      token: token,
+      image: avatarImage,
+    })
+    dispatch(updateUser(token, username, email, avatarImage))
+    window.location.reload()
   }
 
   return (
     <div className={classes.EditProfile}>
       <div className={classes.EditProfile__wrapper}>
         <span className={classes.EditProfile__caption}>Edit Profile</span>
-        <form className={classes.EditProfile__form} onSubmit={handleSubmit(onSubmit)}>
+        <form className={classes.EditProfile__form}>
           <div className={classes.EditProfile__container}>
             <label htmlFor="username">
               <span className={classes.EditProfile__label}>Username</span>
@@ -46,6 +57,7 @@ const EditProfile = () => {
               id="username"
               name="username"
               {...register('username', {
+                required: 'Username address is required',
                 minLength: {
                   value: 3,
                   message: 'Username must be at least 3 characters',
@@ -55,7 +67,8 @@ const EditProfile = () => {
                   message: 'Username must be at most 20 characters',
                 },
               })}
-              defaultValue={defaultValues.username}
+              onChange={(e) => dispatch(updateUsername(e.target.value))}
+              defaultValue={username}
             />
             {errors.username && <p className={classes.EditProfile__errorText}>{errors.username.message}</p>}
           </div>
@@ -76,7 +89,8 @@ const EditProfile = () => {
                   message: 'Invalid email address',
                 },
               })}
-              defaultValue={defaultValues.email}
+              onChange={(e) => dispatch(updateEmail(e.target.value))}
+              defaultValue={email}
             />
             {errors.email && <p className={classes.EditProfile__errorText}>{errors.email.message}</p>}
           </div>
@@ -87,7 +101,7 @@ const EditProfile = () => {
             <input
               className={classes.EditProfile__input}
               placeholder="Password"
-              type="password"
+              type="text"
               id="password"
               name="password"
               {...register('password', {
@@ -107,6 +121,7 @@ const EditProfile = () => {
                     'Password must be between 6 and 40 characters and contain at least one digit and one special character (!.@#$%^&*)',
                 },
               })}
+              onChange={(e) => dispatch(updatePassword(e.target.value))}
             />
             {errors.password && <p className={classes.EditProfile__errorText}>{errors.password.message}</p>}
           </div>
@@ -126,13 +141,14 @@ const EditProfile = () => {
                   message: 'Invalid URL format',
                 },
               })}
-              defaultValue={defaultValues.image}
+              onChange={(e) => dispatch(updateImage(e.target.value))}
+              defaultValue={avatarImage}
             />
             {errors['avatar-image'] && (
               <p className={classes.EditProfile__errorText}>{errors['avatar-image'].message}</p>
             )}
           </div>
-          <button className={classes.EditProfile__button} type="submit" disabled={hasErrors}>
+          <button className={classes.EditProfile__button} onClick={handleUpdateUser} disabled={hasErrors} type="submit">
             <span className={classes.EditProfile__buttonText}>Save</span>
           </button>
         </form>
