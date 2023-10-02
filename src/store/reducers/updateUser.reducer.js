@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 export const USERS_AUTHORIZATION = 'USERS_AUTHORIZATION'
 export const UPDATE_USERNAME = 'UPDATE_USERNAME'
 export const UPDATE_EMAIL = 'UPDATE_EMAIL'
