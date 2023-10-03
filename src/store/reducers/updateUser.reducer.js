@@ -17,7 +17,6 @@ const initialState = {
 }
 
 export const updateUserReducer = (state = initialState, action) => {
-  console.log('updateUserReducer', state, JSON.parse(localStorage.user))
   switch (action.type) {
     case USERS_AUTHORIZATION:
       return {

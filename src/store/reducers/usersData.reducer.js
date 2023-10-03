@@ -9,7 +9,8 @@ const initialState = {
   token: user ? user.token : '',
   username: user ? user.username : '',
   email: user ? user.email : '',
-  image: user.image ? user.image : '',
+  image: user ? user.image : '',
+  authorization: user ? true : false,
   error: null,
 }
 
@@ -22,6 +23,7 @@ export const usersData = (state = initialState, action) => {
         username: action.username,
         email: action.email,
         image: action.image ? action.image : '',
+        authorization: true,
         error: false,
       }
     case WRONG_USERS_DATA:
