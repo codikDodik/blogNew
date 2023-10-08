@@ -7,6 +7,7 @@ import { formReducer } from '../store/reducers/registration.reducer'
 import { usersData } from '../store/reducers/usersData.reducer'
 import { updateUserReducer } from '../store/reducers/updateUser.reducer'
 import { createPostReducer } from '../store/reducers/createPost.reducer'
+import { deletePostReducer } from '../store/reducers/deletePost.reducer'
 
 const rootReducer = combineReducers({
   getPostsListReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   usersData,
   updateUserReducer,
   createPostReducer,
+  deletePostReducer,
 })
 
 export default rootReducer

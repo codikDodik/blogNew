@@ -79,4 +79,38 @@
     height: 46px;
     border-radius: 100%;
   }
+  &__buttons {
+    margin-top: 30px;
+    display: flex;
+  }
+  &__deleteButton {
+    color: #f5222d;
+    width: 78px;
+    height: 30px;
+    font-style: 14px;
+    padding: 5px 17px;
+    border: 1px #f5222d solid;
+    border-radius: 5px;
+    margin-right: 12px;
+  }
+  &__editButton {
+    color: #52c41a;
+    width: 78px;
+    height: 30px;
+    font-style: 14px;
+    padding: 5px 17px;
+    border: 1px #52c41a solid;
+    border-radius: 5px;
+  }
+  &__deleteMessage {
+    text-align: center;
+    width: 938px;
+    margin: auto;
+    margin-top: 20px;
+  }
+  &__spin {
+    margin: 20px auto;
+    width: 100%;
+    align-self: center;
+  }
 }

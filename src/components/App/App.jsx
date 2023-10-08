@@ -45,7 +45,7 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/profile" element={<EditProfile />} />
           <Route path="/new-article" element={<CreateArticle />} />
-          {/* <Route path="/articles/{slug}/edit" element={<EditArticle />} /> */}
+          <Route path="/article/:slug/edit" element={<CreateArticle />} />
         </Routes>
       </main>
     </div>
