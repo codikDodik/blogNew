@@ -9,6 +9,7 @@ import { changePageAction } from '../../store/actions/pagination.action'
 import classes from './ArticleList.module.scss'
 
 const ArticleList = () => {
+  const token = useSelector((state) => state.usersData.token)
   const articlesCount = useSelector((store) => store.getPostsListReducer.articlesCount)
   const articles = useSelector((store) => store.getPostsListReducer.articles)
   const page = useSelector((store) => store.changePageReducer.page)
@@ -16,7 +17,7 @@ const ArticleList = () => {
   const offset = useSelector((store) => store.changePageReducer.offset)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchGetPostsList(limit, offset))
+    dispatch(fetchGetPostsList(limit, offset, token))
   }, [page])
 
   const changePage = (page) => {

@@ -1,16 +1,28 @@
 export const GET_POSTS = 'GET_POSTS'
 
-export function fetchGetPostsList(limit = 5, offset = 0) {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(`https://blog.kata.academy/api/articles?limit=${limit}&offset=${offset}`)
-      const jsonData = await response.json()
-      dispatch({
-        type: GET_POSTS,
-        data: jsonData,
+export function fetchGetPostsList(limit = 5, offset = 0, token) {
+  return (dispatch) => {
+    fetch(`https://blog.kata.academy/api/articles?limit=${limit}&offset=${offset}`, {
+      method: 'get',
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        return response.json()
       })
-    } catch (error) {
-      console.log('api error')
-    }
+      .then((jsonData) => {
+        dispatch({
+          type: GET_POSTS,
+          data: jsonData,
+        })
+        console.log(jsonData)
+      })
+      .catch((error) => {
+        console.log('api error:', error)
+      })
   }
 }

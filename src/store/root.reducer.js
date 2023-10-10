@@ -8,6 +8,7 @@ import { usersData } from '../store/reducers/usersData.reducer'
 import { updateUserReducer } from '../store/reducers/updateUser.reducer'
 import { createPostReducer } from '../store/reducers/createPost.reducer'
 import { deletePostReducer } from '../store/reducers/deletePost.reducer'
+import { getLikesReducer } from '../store/reducers/getLikes.reducer'
 
 const rootReducer = combineReducers({
   getPostsListReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   updateUserReducer,
   createPostReducer,
   deletePostReducer,
+  getLikesReducer,
 })
 
 export default rootReducer

@@ -1,10 +1,18 @@
-import React from 'react'
+// import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Popconfirm } from 'antd'
 
 import likeButton from '../../assets/img/LIkeButton.svg'
+// import { fetchLikePost } from '../../services/fetchLikePost'
 
 import classes from './ArticleInfo.module.scss'
 const ArticleInfo = ({ data }) => {
+  // const like = useSelector((state) => state.getLikesReducer.isLiked)
+  // console.log(like)
+  // const token = useSelector((state) => state.usersData.token)
+  // const dispatch = useDispatch()
+  const authorization = useSelector((state) => state.usersData.authorization)
   const { description, title, author, tagList, favoritesCount, slug, updatedAt } = data
   const renderTags = () => {
     return tagList
@@ -20,6 +28,10 @@ const ArticleInfo = ({ data }) => {
     const formattedDate = new Date(isoDate).toLocaleDateString(undefined, options)
     return formattedDate
   }
+
+  const addLike = () => {
+    console.log('add like')
+  }
   return (
     <div className={classes.ArticleInfo}>
       <div className={classes.ArticleInfo__info}>
@@ -27,9 +39,21 @@ const ArticleInfo = ({ data }) => {
           <Link className={classes.ArticleInfo__title} to={`/${slug}`}>
             {title}
           </Link>
-          <button className={classes.ArticleInfo__likes} type="button">
-            <img src={likeButton} alt="Likes" />
-          </button>
+          {authorization ? (
+            <button className={classes.ArticleInfo__likes} type="button" onClick={addLike}>
+              <img src={likeButton} alt="Likes" />
+            </button>
+          ) : (
+            <Popconfirm
+              placement="right"
+              title="Need authentication"
+              cancelButtonProps={{ style: { display: 'none' } }}
+            >
+              <button className={classes.ArticleInfo__likes} type="button">
+                <img src={likeButton} alt="like" />
+              </button>
+            </Popconfirm>
+          )}
           <span className={classes.ArticleInfo__likesAmount}>{favoritesCount}</span>
         </div>
         <ul className={classes.ArticleInfo__tags}>{renderTags()}</ul>

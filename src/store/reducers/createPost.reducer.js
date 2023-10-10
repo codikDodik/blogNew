@@ -15,7 +15,6 @@ const initialState = {
 }
 
 export const createPostReducer = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case SET_TITLE:
       return { ...state, title: action.title }

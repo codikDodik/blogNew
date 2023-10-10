@@ -7,22 +7,31 @@ import { Popconfirm, Alert, Spin } from 'antd'
 import { fetchGetPost } from '../../services/fetchGetPost'
 import { fetchDeletePost } from '../../services/deletePost'
 import likeButton from '../../assets/img/LIkeButton.svg'
+import coloredLikeButton from '../../assets/img/LikeButtonColored.svg'
+import { fetchLikePost } from '../../services/fetchLikePost'
 
 import classes from './SingleArticle.module.scss'
 const SingleArticle = () => {
+  // const isLikedReducer = useSelector((store) => store.getPostReducer.article.favorited)
+  const authorization = useSelector((state) => state.usersData.authorization)
   const [isDelete, setDeletePost] = useState(false)
+  const [isLiked, setLike] = useState(false)
+  const [isAlreadyLiked, getLike] = useState(false)
   const token = useSelector((state) => state.usersData.token)
   const user = useSelector((state) => state.usersData)
   const dispatch = useDispatch()
   const { slug } = useParams()
 
-  useEffect(() => {
-    console.log('slug', slug)
-    dispatch(fetchGetPost(slug))
-  }, [slug])
-
   const post = useSelector((store) => store.getPostReducer.article)
   const article = post ? post : null
+
+  useEffect(() => {
+    dispatch(fetchGetPost(slug, token))
+    if (post) {
+      getLike(article.favorited)
+      console.log(article.favorited)
+    }
+  }, [slug])
 
   const generateTagList = (tagList) => {
     return tagList.map((tag, index) => (
@@ -42,10 +51,18 @@ const SingleArticle = () => {
     setDeletePost(true)
   }
 
+  const addLike = () => {
+    // Инвертируем состояние isLiked
+    setLike(!isLiked)
+
+    // Отправляем запрос на сервер для добавления или удаления лайка
+    dispatch(fetchLikePost(slug, token, isLiked)) // Инвертируем состояние isLiked для запроса
+  }
+
   if (!post) {
     return <Spin size="large" className={classes.SingleArticle__spin} />
   } else if (isDelete) {
-    return <Alert type="error" message="Пост успешно удалён" className={classes.SingleArticle__deleteMessage} />
+    return <Alert type="success" message="Post successfully deleted" className={classes.SingleArticle__deleteMessage} />
   }
 
   return (
@@ -56,10 +73,27 @@ const SingleArticle = () => {
             <div className={classes.SingleArticle__info}>
               <div className={classes.SingleArticle__wrapper}>
                 <div className={classes.SingleArticle__title}>{article.title}</div>
-                <button className={classes.SingleArticle__likes} type="button">
-                  <img src={likeButton} alt="Likes" />
-                </button>
-                <span className={classes.SingleArticle__likesAmount}>{article.favoritesCount}</span>
+                {authorization ? (
+                  <>
+                    <button className={classes.SingleArticle__likes} onClick={addLike} type="button">
+                      <img src={isAlreadyLiked || isLiked ? coloredLikeButton : likeButton} alt="Likes" />
+                    </button>
+                    <span className={classes.SingleArticle__likesAmount}>
+                      {isLiked ? article.favoritesCount + 1 : article.favoritesCount}
+                    </span>
+                  </>
+                ) : (
+                  <Popconfirm
+                    placement="right"
+                    title="Need authentication"
+                    cancelButtonProps={{ style: { display: 'none' } }}
+                  >
+                    <button className={classes.SingleArticle__likes} type="button">
+                      <img src={likeButton} alt="Likes" />
+                    </button>
+                    <span className={classes.SingleArticle__likesAmount}>{article.favoritesCount}</span>
+                  </Popconfirm>
+                )}
               </div>
               <ul className={classes.SingleArticle__tags}>{post && generateTagList(article.tagList)}</ul>
               <p className={classes.SingleArticle__description}>{article.description}</p>

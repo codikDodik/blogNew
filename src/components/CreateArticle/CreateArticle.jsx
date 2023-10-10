@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Alert } from 'antd'
 
 import { fetchCreatePost } from '../../services/createPost'
@@ -9,6 +9,8 @@ import { fetchCreatePost } from '../../services/createPost'
 import classes from './CreateArticle.module.scss'
 
 const CreateArticle = () => {
+  const authorization = useSelector((state) => state.usersData.authorization)
+  const navigate = useNavigate()
   const [createPost, setCreatePost] = useState(false)
   const dispatch = useDispatch()
   const token = useSelector((state) => state.usersData.token)
@@ -25,7 +27,6 @@ const CreateArticle = () => {
   console.log(slug)
 
   const onSubmit = (data) => {
-    console.log(data)
     dispatch(fetchCreatePost(token, data.title, data.description, data.articleText, tags))
     setCreatePost(true)
   }
@@ -48,6 +49,12 @@ const CreateArticle = () => {
     newTags.splice(index, 1)
     setTags(newTags)
   }
+
+  useEffect(() => {
+    if (!authorization) {
+      navigate('/sign-in')
+    }
+  })
 
   return (
     <>

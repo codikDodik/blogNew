@@ -6,7 +6,11 @@ import classes from './Header.module.scss'
 const Header = () => {
   return (
     <div className={classes.Header}>
-      <div className={classes.Header__name}>Realworld Blog</div>
+      <div className={classes.Header__name}>
+        <Link to="/">
+          <span className={classes.Header__nameWrapper}>Realworld Blog</span>
+        </Link>
+      </div>{' '}
       <div className={classes.Header__signButtons}>
         <Link to="/sign-in">
           <button className={classes.Header__signInButton}>Sign In</button>
