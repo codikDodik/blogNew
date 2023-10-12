@@ -10,7 +10,6 @@ export const fetchDeletePost = (token, slug) => {
     }).then((response) => {
       if (response.ok) {
         dispatch(deletePostAction(slug))
-        console.log('delete post')
       }
     })
   }

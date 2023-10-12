@@ -64,6 +64,10 @@ const SingleArticle = () => {
       dispatch(fetchLikePost(slug, token, isLiked))
     }
 
+    const handleEdit = () => {
+      dispatch(fetchGetPost(slug, token))
+    }
+
     return (
       <>
         {post && (
@@ -129,7 +133,7 @@ const SingleArticle = () => {
                     >
                       <button className={classes.SingleArticle__deleteButton}>Delete</button>
                     </Popconfirm>
-                    <Link to={`/article/${slug}/edit`}>
+                    <Link to={`/article/${slug}/edit`} onClick={handleEdit}>
                       <button className={classes.SingleArticle__editButton}>Edit</button>
                     </Link>
                   </div>

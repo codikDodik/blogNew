@@ -15,7 +15,6 @@ import UsersHeader from '../Header/UsersHeader'
 // import NotFoundPage from '../NotFoundPage'
 
 import classes from './App.module.scss'
-console.log(classes)
 
 function App() {
   const usersData = useSelector((state) => {

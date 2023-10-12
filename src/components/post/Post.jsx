@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const Post = () => {
   const [articles, setArticles] = useState([])
   useEffect(() => {
@@ -7,8 +7,6 @@ const Post = () => {
       .then((res) => res.json())
       .then((data) => setArticles(data.articles))
   }, [])
-  const { slug } = useParams()
-  console.log(articles, slug)
   return (
     <div>
       {articles.map((post) => (

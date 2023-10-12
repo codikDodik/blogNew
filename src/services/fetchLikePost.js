@@ -13,7 +13,6 @@ export const fetchLikePost = (slug, token, favorited) => {
     })
       .then((r) => r.json())
       .then((r) => {
-        console.log(r)
         dispatch(getLikesAction(r.article.favorited))
       })
       .catch((error) => {

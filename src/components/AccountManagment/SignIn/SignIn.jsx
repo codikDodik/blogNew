@@ -12,7 +12,6 @@ const SignIn = () => {
   const usersDataError = useSelector((state) => {
     return state.usersData.error
   })
-  console.log('usersDataError', usersDataError)
   const dispatch = useDispatch()
   const {
     register,

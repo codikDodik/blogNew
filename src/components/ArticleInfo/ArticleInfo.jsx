@@ -37,7 +37,6 @@ const ArticleInfo = ({ data }) => {
     if (authorization) {
       dispatch(fetchLikePost(slug, token, favorited))
       setLike(!like)
-      console.log('favorited', favorited, like)
       if (like) {
         setFavoritesCount(localFavoritesCount - 1)
       } else {

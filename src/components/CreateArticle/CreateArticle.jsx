@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Alert } from 'antd'
 
 import { fetchCreatePost } from '../../services/createPost'
+import { fetchUpdatePost } from '../../services/fetchUpdatePost'
 
 import classes from './CreateArticle.module.scss'
 
@@ -24,11 +25,14 @@ const CreateArticle = () => {
   const [tags, setTags] = useState([])
   const [tagError, setTagError] = useState(null)
 
-  console.log(slug)
-
   const onSubmit = (data) => {
-    dispatch(fetchCreatePost(token, data.title, data.description, data.articleText, tags))
-    setCreatePost(true)
+    if (!slug) {
+      dispatch(fetchCreatePost(token, data.title, data.description, data.articleText, tags))
+      setCreatePost(true)
+    } else {
+      dispatch(fetchUpdatePost(slug, token, data.title, data.description, data.articleText))
+      navigate('/')
+    }
   }
 
   const handleAddTag = () => {
@@ -63,7 +67,7 @@ const CreateArticle = () => {
       ) : (
         <div className={classes.CreateArticle}>
           <div className={classes.CreateArticle__wrapper}>
-            <span className={classes.CreateArticle__caption}>Create new article</span>
+            <span className={classes.CreateArticle__caption}>{slug ? 'Edit article' : 'Create new article'}</span>
             <form className={classes.CreateArticle__form} onSubmit={handleSubmit(onSubmit)}>
               <div className={classes.CreateArticle__container}>
                 <label htmlFor="title">

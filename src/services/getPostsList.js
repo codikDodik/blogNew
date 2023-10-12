@@ -19,7 +19,6 @@ export function fetchGetPostsList(limit = 5, offset = 0, token) {
           type: GET_POSTS,
           data: jsonData,
         })
-        console.log(jsonData)
       })
       .catch((error) => {
         console.log('api error:', error)

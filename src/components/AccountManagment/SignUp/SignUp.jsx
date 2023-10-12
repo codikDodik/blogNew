@@ -39,8 +39,6 @@ const SignUp = () => {
     setIsCheckboxChecked(e.target.checked)
   }
 
-  console.log('errors', errors)
-
   const validatePasswordMatch = (value) => {
     const password = getValues('password')
     return value === password || 'Field must match the password field'
