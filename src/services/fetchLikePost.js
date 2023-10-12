@@ -3,7 +3,6 @@ import { getLikesAction } from '../store/actions/getLikes.action'
 
 export const fetchLikePost = (slug, token, favorited) => {
   return (dispatch) => {
-    console.log('favorites', favorited)
     fetch(`https://blog.kata.academy/api/articles/${slug}/favorite`, {
       method: favorited ? 'DELETE' : 'POST',
       body: JSON.stringify({ slug: slug }),

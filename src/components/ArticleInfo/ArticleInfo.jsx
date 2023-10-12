@@ -1,19 +1,23 @@
-// import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Popconfirm } from 'antd'
 
 import likeButton from '../../assets/img/LIkeButton.svg'
-// import { fetchLikePost } from '../../services/fetchLikePost'
+import coloredLikeButton from '../../assets/img/LikeButtonColored.svg'
+import { fetchLikePost } from '../../services/fetchLikePost'
 
 import classes from './ArticleInfo.module.scss'
 const ArticleInfo = ({ data }) => {
-  // const like = useSelector((state) => state.getLikesReducer.isLiked)
-  // console.log(like)
-  // const token = useSelector((state) => state.usersData.token)
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+
+  const token = useSelector((state) => state.usersData.token)
   const authorization = useSelector((state) => state.usersData.authorization)
-  const { description, title, author, tagList, favoritesCount, slug, updatedAt } = data
+
+  const { description, title, author, tagList, favorited, favoritesCount, slug, updatedAt } = data
+  const [like, setLike] = useState(favorited ? true : false)
+  const [localFavoritesCount, setFavoritesCount] = useState(favoritesCount)
+
   const renderTags = () => {
     return tagList
       .filter((tag) => tag !== null && tag.trim() !== '')
@@ -30,7 +34,16 @@ const ArticleInfo = ({ data }) => {
   }
 
   const addLike = () => {
-    console.log('add like')
+    if (authorization) {
+      dispatch(fetchLikePost(slug, token, favorited))
+      setLike(!like)
+      console.log('favorited', favorited, like)
+      if (like) {
+        setFavoritesCount(localFavoritesCount - 1)
+      } else {
+        setFavoritesCount(localFavoritesCount + 1)
+      }
+    }
   }
   return (
     <div className={classes.ArticleInfo}>
@@ -40,21 +53,26 @@ const ArticleInfo = ({ data }) => {
             {title}
           </Link>
           {authorization ? (
-            <button className={classes.ArticleInfo__likes} type="button" onClick={addLike}>
-              <img src={likeButton} alt="Likes" />
-            </button>
-          ) : (
-            <Popconfirm
-              placement="right"
-              title="Need authentication"
-              cancelButtonProps={{ style: { display: 'none' } }}
-            >
-              <button className={classes.ArticleInfo__likes} type="button">
-                <img src={likeButton} alt="like" />
+            <>
+              <button className={classes.ArticleInfo__likes} type="button" onClick={addLike}>
+                <img src={like ? coloredLikeButton : likeButton} alt="Likes" />
               </button>
-            </Popconfirm>
+              <span className={classes.ArticleInfo__likesAmount}>{localFavoritesCount}</span>
+            </>
+          ) : (
+            <>
+              <Popconfirm
+                placement="right"
+                title="Need authentication"
+                cancelButtonProps={{ style: { display: 'none' } }}
+              >
+                <button className={classes.ArticleInfo__likes} type="button">
+                  <img src={likeButton} alt="like" />
+                </button>
+              </Popconfirm>
+              <span className={classes.ArticleInfo__likesAmount}>{favoritesCount}</span>
+            </>
           )}
-          <span className={classes.ArticleInfo__likesAmount}>{favoritesCount}</span>
         </div>
         <ul className={classes.ArticleInfo__tags}>{renderTags()}</ul>
         <p className={classes.ArticleInfo__text}>{description}</p>
