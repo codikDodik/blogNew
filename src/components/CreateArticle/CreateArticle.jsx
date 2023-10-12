@@ -13,6 +13,7 @@ const CreateArticle = () => {
   const authorization = useSelector((state) => state.usersData.authorization)
   const navigate = useNavigate()
   const [createPost, setCreatePost] = useState(false)
+  const [editPost, setEditPost] = useState(false)
   const dispatch = useDispatch()
   const token = useSelector((state) => state.usersData.token)
   const { slug } = useParams()
@@ -31,7 +32,7 @@ const CreateArticle = () => {
       setCreatePost(true)
     } else {
       dispatch(fetchUpdatePost(slug, token, data.title, data.description, data.articleText))
-      navigate('/')
+      setEditPost(true)
     }
   }
 
@@ -64,6 +65,8 @@ const CreateArticle = () => {
     <>
       {createPost ? (
         <Alert className={classes.CreateArticle__alert} type="success" message="Post successfully created" />
+      ) : editPost ? (
+        <Alert className={classes.CreateArticle__alert} type="success" message="Post successfully edited" />
       ) : (
         <div className={classes.CreateArticle}>
           <div className={classes.CreateArticle__wrapper}>
