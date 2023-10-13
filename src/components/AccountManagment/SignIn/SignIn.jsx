@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
-// import { usersAuthorizationUpdate } from '../../../store/actions/updateUser.action'
 import { authoriztionUsers } from '../../../services/authorizationUser'
 
 import classes from './SignIn.module.scss'

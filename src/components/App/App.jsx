@@ -10,9 +10,7 @@ import SignIn from '../AccountManagment/SignIn'
 import EditProfile from '../AccountManagment/EditProfile'
 import CreateArticle from '../CreateArticle'
 import UsersHeader from '../Header/UsersHeader'
-// import Post from '../Post'
-// import EditArticle from '../EditArticle'
-// import NotFoundPage from '../NotFoundPage'
+import NotFoundPage from '../NotFoundPage'
 
 import classes from './App.module.scss'
 
@@ -23,8 +21,6 @@ function App() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'))
     if (storedUser) {
-      // Если есть данные в localStorage, отображаем UsersHeader
-      // и выходим из компонента, чтобы не переключать на Header
       return
     }
   }, [])
@@ -45,6 +41,7 @@ function App() {
           <Route path="/profile" element={<EditProfile />} />
           <Route path="/new-article" element={<CreateArticle />} />
           <Route path="/article/:slug/edit" element={<CreateArticle />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
     </div>

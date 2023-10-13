@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-// import { signUpInfo } from '../../../store/actions/registration.action'
 import { registerUser } from '../../../services/registerUser'
 
 import classes from './SignUp.module.scss'
