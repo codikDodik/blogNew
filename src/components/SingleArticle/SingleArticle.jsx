@@ -12,6 +12,8 @@ import { fetchLikePost } from '../../services/fetchLikePost'
 
 import classes from './SingleArticle.module.scss'
 const SingleArticle = () => {
+  const delitingError = useSelector((state) => state.deletePostReducer.error)
+  console.log('delitingError', delitingError)
   const [isDelete, setDeletePost] = useState(false)
   const [isLiked, setLike] = useState(false)
 
@@ -30,7 +32,15 @@ const SingleArticle = () => {
     dispatch(fetchGetPost(slug, token))
   }, [slug])
 
-  if (!post) {
+  if (delitingError) {
+    return (
+      <Alert
+        className={classes.SingleArticle__error}
+        type="error"
+        message="An error occurred while deleting the post. Please refresh the page and try again."
+      />
+    )
+  } else if (!post) {
     return <Spin size="large" className={classes.SingleArticle__spin} />
   } else if (isDelete) {
     return <Alert type="success" message="Post successfully deleted" className={classes.SingleArticle__deleteMessage} />
@@ -53,7 +63,7 @@ const SingleArticle = () => {
 
     const deletePost = (token, slug) => {
       dispatch(fetchDeletePost(slug, token))
-      setDeletePost(true)
+      delitingError ? setDeletePost(false) : setDeletePost(true)
     }
 
     const addLike = () => {

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { errorAction } from '../store/actions/createPost.action'
 export const fetchCreatePost = (token, title, description, body, tagList) => {
   return (dispatch) => {
     fetch('https://blog.kata.academy/api/articles/', {
@@ -21,6 +22,10 @@ export const fetchCreatePost = (token, title, description, body, tagList) => {
         if (data.article) {
           console.log(data.article)
         }
+      })
+      .catch((error) => {
+        dispatch(errorAction())
+        console.error('Произошла ошибка:', error)
       })
   }
 }

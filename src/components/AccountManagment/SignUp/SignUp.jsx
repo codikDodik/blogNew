@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { registerUser } from '../../../services/registerUser'
 
 import classes from './SignUp.module.scss'
 
 const SignUp = () => {
-  const navigate = useNavigate()
-  const alreadyUsed = useSelector((state) => {
-    return state.formReducer
+  const alreadyUsedEmail = useSelector((state) => {
+    return state.formReducer.alreadyUsedEmail
   })
+  const alreadyUsedUsername = useSelector((state) => {
+    return state.formReducer.alreadyUsedUsername
+  })
+
+  console.log(alreadyUsedEmail)
 
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
   const dispatch = useDispatch()
@@ -28,7 +32,6 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     try {
       await dispatch(registerUser(data))
-      navigate('/sign-in')
       reset()
     } catch (error) {
       console.error('Ошибка при регистрации:', error)
@@ -69,6 +72,9 @@ const SignUp = () => {
               })}
               required
             />
+            {alreadyUsedUsername && (
+              <p className={classes.SignUp__errorText}>This username has already been used for registration.</p>
+            )}
             <p className={classes.SignUp__errorText}>{errors?.username?.message}</p>
           </div>
           <div className={classes.SignUp__container}>
@@ -89,7 +95,7 @@ const SignUp = () => {
               })}
               required
             />
-            {alreadyUsed.alreadyUsedEmail && (
+            {alreadyUsedEmail && (
               <p className={classes.SignUp__errorText}>This email has already been used for registration.</p>
             )}
             <p className={classes.SignUp__errorText}>{errors?.email?.message}</p>

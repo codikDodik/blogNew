@@ -10,6 +10,7 @@ import { fetchUpdatePost } from '../../services/fetchUpdatePost'
 import classes from './CreateArticle.module.scss'
 
 const CreateArticle = () => {
+  const error = useSelector((state) => state.createPostReducer.error)
   const authorization = useSelector((state) => state.usersData.authorization)
   const navigate = useNavigate()
   const [createPost, setCreatePost] = useState(false)
@@ -63,7 +64,9 @@ const CreateArticle = () => {
 
   return (
     <>
-      {createPost ? (
+      {error ? (
+        <Alert className={classes.CreateArticle__error} type="error" message="Error occurred while creating the post" />
+      ) : createPost ? (
         <Alert className={classes.CreateArticle__alert} type="success" message="Post successfully created" />
       ) : editPost ? (
         <Alert className={classes.CreateArticle__alert} type="success" message="Post successfully edited" />

@@ -6,6 +6,7 @@ export const SET_TEXT = 'SET_TEXT'
 export const SET_TAG = 'SET_TAG'
 export const ADD_TAG = 'ADD_TAG'
 export const CLEAR_FORM_POST = 'CLEAR_FORM_POST'
+export const ERROR = 'ERROR'
 
 const initialState = {
   title: '',
@@ -13,6 +14,7 @@ const initialState = {
   text: '',
   tag: '',
   tagList: [],
+  error: false,
 }
 
 export const createPostReducer = (state = initialState, action) => {
@@ -27,6 +29,8 @@ export const createPostReducer = (state = initialState, action) => {
       return { ...state, tag: action.tag }
     case CLEAR_FORM_POST:
       return { initialState }
+    case ERROR:
+      return { ...state, error: action.error }
     default:
       return state
   }

@@ -1,4 +1,5 @@
 export const GET_POSTS = 'GET_POSTS'
+export const GET_POSTS_ERROR = 'GET_POSTS_ERROR'
 
 export function fetchGetPostsList(limit = 5, offset = 0, token) {
   return (dispatch) => {
@@ -21,6 +22,10 @@ export function fetchGetPostsList(limit = 5, offset = 0, token) {
         })
       })
       .catch((error) => {
+        dispatch({
+          type: GET_POSTS_ERROR,
+          error: true,
+        })
         console.log('api error:', error)
       })
   }
