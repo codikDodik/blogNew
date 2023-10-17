@@ -12,6 +12,7 @@ const initialState = {
   image: user ? user.image : '',
   authorization: user ? true : false,
   error: null,
+  serverAnswer: false,
 }
 
 export const usersData = (state = initialState, action) => {
@@ -25,11 +26,13 @@ export const usersData = (state = initialState, action) => {
         image: action.image ? action.image : '',
         authorization: true,
         error: false,
+        serverAnswer: true,
       }
     case WRONG_USERS_DATA:
       return {
         ...state,
         error: true,
+        serverAnswer: true,
       }
     default:
       return state

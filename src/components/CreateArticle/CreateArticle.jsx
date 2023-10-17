@@ -10,6 +10,7 @@ import { fetchUpdatePost } from '../../services/fetchUpdatePost'
 import classes from './CreateArticle.module.scss'
 
 const CreateArticle = () => {
+  const postData = useSelector((state) => state.getPostReducer.article)
   const error = useSelector((state) => state.createPostReducer.error)
   const authorization = useSelector((state) => state.usersData.authorization)
   const navigate = useNavigate()
@@ -23,7 +24,6 @@ const CreateArticle = () => {
     control,
     formState: { errors },
   } = useForm()
-
   const [tags, setTags] = useState([])
   const [tagError, setTagError] = useState(null)
 
@@ -35,6 +35,7 @@ const CreateArticle = () => {
       dispatch(fetchUpdatePost(slug, token, data.title, data.description, data.articleText))
       setEditPost(true)
     }
+    navigate('/')
   }
 
   const handleAddTag = () => {
@@ -82,7 +83,7 @@ const CreateArticle = () => {
                 <Controller
                   name="title"
                   control={control}
-                  defaultValue=""
+                  defaultValue={slug && postData ? postData.title : ''}
                   rules={{ required: 'Title is required' }}
                   render={({ field }) => (
                     <input
@@ -104,7 +105,7 @@ const CreateArticle = () => {
                 <Controller
                   name="description"
                   control={control}
-                  defaultValue=""
+                  defaultValue={slug && postData ? postData.description : ''}
                   rules={{ required: 'The short description field cannot be empty.' }}
                   render={({ field }) => (
                     <input
@@ -126,7 +127,7 @@ const CreateArticle = () => {
                 <Controller
                   name="articleText"
                   control={control}
-                  defaultValue=""
+                  defaultValue={slug && postData ? postData.body : ''}
                   rules={{ required: 'The text field cannot be empty' }}
                   render={({ field }) => (
                     <textarea

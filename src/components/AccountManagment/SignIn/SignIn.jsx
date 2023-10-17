@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,6 +7,8 @@ import { authoriztionUsers } from '../../../services/authorizationUser'
 
 import classes from './SignIn.module.scss'
 const SignIn = () => {
+  const serverAnswer = useSelector((state) => state.usersData.serverAnswer)
+  const [isClicked, setClick] = useState(false)
   const navigate = useNavigate()
   const usersDataError = useSelector((state) => {
     return state.usersData.error
@@ -20,7 +22,14 @@ const SignIn = () => {
     mode: 'onBlur',
   })
 
+  useEffect(() => {
+    if (serverAnswer) {
+      setClick(!serverAnswer)
+    }
+  }, [serverAnswer])
+
   const onSubmit = (data) => {
+    setClick(true)
     dispatch(authoriztionUsers(data))
   }
   useEffect(() => {
@@ -68,14 +77,14 @@ const SignIn = () => {
                 required: 'Password is required',
               })}
             />
-            {/* <p className={classes.SignIn__errorText}>{errors.password?.message}</p> */}
+            <p className={classes.SignIn__errorText}>{errors.password?.message}</p>
             {usersDataError === true ? (
               <p className={classes.SignIn__errorText}>
                 Authentication failed. Please check your credentials and try again.
               </p>
             ) : null}
           </div>
-          <button className={classes.SignIn__button} type="submit">
+          <button className={classes.SignIn__button} disabled={isClicked} type="submit">
             <span className={classes.SignIn__buttonText}>Login</span>
           </button>
           <div className={classes.SignIn__footer}>

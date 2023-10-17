@@ -8,7 +8,6 @@ const initialState = {
 }
 
 const getPostsListReducer = (state = initialState, action) => {
-  console.log('check', action.error)
   switch (action.type) {
     case GET_POSTS:
       return { ...action.data }

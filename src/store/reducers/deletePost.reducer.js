@@ -9,7 +9,6 @@ const initialState = {
 }
 
 export const deletePostReducer = (state = initialState, action) => {
-  console.log(state)
   switch (action.type) {
     case DELETE_POST:
       return {
