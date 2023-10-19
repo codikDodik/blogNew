@@ -2,6 +2,7 @@
 /* eslint-disable indent */
 export const GET_DATA_USER = 'GET_DATA_USER'
 export const WRONG_USERS_DATA = 'WRONG_USERS_DATA'
+export const BUTTON_ENABLED = 'BUTTON_ENABLED'
 
 const user = localStorage.user ? JSON.parse(localStorage.user) : false
 
@@ -33,6 +34,11 @@ export const usersData = (state = initialState, action) => {
         ...state,
         error: true,
         serverAnswer: true,
+      }
+    case BUTTON_ENABLED:
+      return {
+        ...state,
+        serverAnswer: false,
       }
     default:
       return state

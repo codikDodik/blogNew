@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { authoriztionUsers } from '../../../services/authorizationUser'
+import { buttonEnabledAction } from '../../../store/actions/usersData.action'
 
 import classes from './SignIn.module.scss'
 const SignIn = () => {
@@ -24,12 +25,13 @@ const SignIn = () => {
 
   useEffect(() => {
     if (serverAnswer) {
-      setClick(!serverAnswer)
+      setClick((isClicked) => !isClicked)
     }
   }, [serverAnswer])
 
   const onSubmit = (data) => {
     setClick(true)
+    dispatch(buttonEnabledAction())
     dispatch(authoriztionUsers(data))
   }
   useEffect(() => {
